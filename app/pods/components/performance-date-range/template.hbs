@@ -1,0 +1,28 @@
+{{#basic-dropdown
+  renderInPlace=false
+  matchTriggerWidth=false
+  as |dropdown|
+}}
+  <input
+    type="text"
+    data-ebd-id="{{dropdown.uniqueId}}-trigger"
+    placeholder="Date range"
+    class="fw-datepicker"
+    onclick={{dropdown.actions.toggle}}
+    value={{formattedRange}}
+    readonly
+  >
+
+  {{#dropdown.content class="fw-datepicker-block"}}
+    {{#power-calendar-range
+      center=endDate
+      onCenterChange=(action (mut endDate) value="date")
+      selected=(hash start=startDate end=endDate)
+      onSelect=(action 'applyDate')
+      as |calendar|
+    }}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar-range}}
+  {{/dropdown.content}}
+{{/basic-dropdown}}
